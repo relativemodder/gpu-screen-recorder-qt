@@ -19,5 +19,8 @@ public:
 
 private:
     Ui::OverlayWindow *ui;
+
+public slots:
+    void showAbout();
 };
 #endif // OVERLAYWINDOW_H
