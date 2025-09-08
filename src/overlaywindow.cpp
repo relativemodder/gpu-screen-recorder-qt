@@ -2,7 +2,7 @@
 #include "ui_overlaywindow.h"
 
 OverlayWindow::OverlayWindow(QWidget *parent)
-    : QDialog(parent)
+    : QMainWindow(parent)
     , ui(new Ui::OverlayWindow)
 {
     ui->setupUi(this);

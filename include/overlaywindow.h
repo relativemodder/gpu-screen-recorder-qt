@@ -1,7 +1,7 @@
 #ifndef OVERLAYWINDOW_H
 #define OVERLAYWINDOW_H
 
-#include <QDialog>
+#include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -9,7 +9,7 @@ class OverlayWindow;
 }
 QT_END_NAMESPACE
 
-class OverlayWindow : public QDialog
+class OverlayWindow : public QMainWindow
 {
     Q_OBJECT
 
