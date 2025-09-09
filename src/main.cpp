@@ -1,9 +1,16 @@
 #include "overlaywindow.h"
 
 #include <QApplication>
+#include <LayerShellQt/shell.h>
+#include <iostream>
+#include <utils.h>
 
 int main(int argc, char *argv[])
 {
+    Utils::executeIfKDE([] {
+        LayerShellQt::Shell::useLayerShell();
+    });
+
     QApplication a(argc, argv);
     OverlayWindow w;
 
@@ -16,7 +23,22 @@ int main(int argc, char *argv[])
     );
 
     w.setWindowModality(Qt::WindowModal);
+    w.createWinId();
 
-    w.showFullScreen();
+    Utils::executeIfKDE([&w] {
+        auto surface = LayerShellQt::Window::get(w.windowHandle());
+
+        if (!surface) {
+            std::cerr << "surface == nullptr";
+        }
+
+        surface->setExclusiveZone(-1);
+        surface->setLayer(LayerShellQt::Window::LayerOverlay);
+
+        w.show();
+    }, [&w] {
+        w.showFullScreen();
+    });
+
     return a.exec();
 }

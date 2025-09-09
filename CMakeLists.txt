@@ -19,10 +19,13 @@ qt_add_executable(gpu-screen-recorder-qt
 
 target_include_directories(gpu-screen-recorder-qt PUBLIC include)
 
+find_package(LayerShellQt REQUIRED)
+
 target_link_libraries(gpu-screen-recorder-qt
     PRIVATE
         Qt::Core
         Qt::Widgets
+        LayerShellQt::Interface
 )
 
 include(GNUInstallDirs)

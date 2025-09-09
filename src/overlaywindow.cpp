@@ -1,6 +1,9 @@
 #include <QMessageBox>
 #include "overlaywindow.h"
 #include "ui_overlaywindow.h"
+#include <utils.h>
+
+#include <LayerShellQt/window.h>
 
 OverlayWindow::OverlayWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,10 +16,10 @@ OverlayWindow::OverlayWindow(QWidget *parent)
 
 void OverlayWindow::showAbout()
 {
-    QMessageBox::information(
-        this, "GPU Screen Recorder Qt Overlay",
+    Utils::createMessageBox(
+        this, QMessageBox::Icon::Information,
         "Oh, so you discovered... this.\n\n"
-        "Haha, well done!");
+        "Haha, well done!")->show();
 }
 
 OverlayWindow::~OverlayWindow()
