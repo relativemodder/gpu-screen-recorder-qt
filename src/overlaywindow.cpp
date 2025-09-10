@@ -17,9 +17,10 @@ OverlayWindow::OverlayWindow(QWidget *parent)
 void OverlayWindow::showAbout()
 {
     Utils::createMessageBox(
-        this, QMessageBox::Icon::Information,
+        this,
         "Oh, so you discovered... this.\n\n"
-        "Haha, well done!")->show();
+        "Haha, well done!"
+    )->show();
 }
 
 OverlayWindow::~OverlayWindow()

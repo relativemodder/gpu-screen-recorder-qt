@@ -19,7 +19,7 @@ void Utils::executeIfKDE(std::function<void()> onKDEFunc, std::function<void()> 
     }
 }
 
-QMessageBox* Utils::createMessageBox(QWidget* parent, QMessageBox::Icon icon, const QString text) {
+QMessageBox* Utils::createMessageBox(QWidget* parent, const QString text, QMessageBox::Icon icon) {
     auto ret = new QMessageBox(parent);
 
     ret->setIcon(icon);
