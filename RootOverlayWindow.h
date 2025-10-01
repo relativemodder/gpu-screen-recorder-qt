@@ -23,6 +23,8 @@ private:
 
 public slots:
     void disappear();
+    void appear();
+    void playAnimation();
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;

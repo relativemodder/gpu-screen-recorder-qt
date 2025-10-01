@@ -11,5 +11,7 @@ int main(int argc, char *argv[])
     w.setWindowFlag(Qt::NoTitleBarBackgroundHint);
     w.showFullScreen();
 
+    w.appear();
+
     return a.exec();
 }
