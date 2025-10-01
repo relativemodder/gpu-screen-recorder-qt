@@ -25,12 +25,12 @@ void RootOverlayWindow::appear() {
     QTimer* timer = new QTimer(this);
     timer->setSingleShot(true);
 
-    connect(timer, &QTimer::timeout, this, &RootOverlayWindow::playAnimation);
+    connect(timer, &QTimer::timeout, this, &RootOverlayWindow::playAppearAnimation);
 
     timer->start(100);
 }
 
-void RootOverlayWindow::playAnimation() {
+void RootOverlayWindow::playAppearAnimation() {
 
     QPropertyAnimation *animation = new QPropertyAnimation(ui->mainFrame, "pos");
     animation->setDuration(400);
