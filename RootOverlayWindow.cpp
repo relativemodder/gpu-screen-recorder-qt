@@ -11,7 +11,6 @@ RootOverlayWindow::RootOverlayWindow(QWidget *parent)
     ui->setupUi(this);
 
     connect(ui->closeButton, &QPushButton::clicked, this, &RootOverlayWindow::disappear);
-
 }
 
 RootOverlayWindow::~RootOverlayWindow()
@@ -32,8 +31,10 @@ void RootOverlayWindow::appear() {
 }
 
 void RootOverlayWindow::playAnimation() {
+
     QPropertyAnimation *animation = new QPropertyAnimation(ui->mainFrame, "pos");
-    animation->setDuration(300);
+    animation->setDuration(400);
+    animation->setEasingCurve(QEasingCurve::InOutCirc);
     animation->setStartValue(QPoint(-ui->mainFrame->width(), 0));
     animation->setEndValue(QPoint(0, 0));
 
@@ -44,7 +45,21 @@ void RootOverlayWindow::playAnimation() {
 
 void RootOverlayWindow::disappear()
 {
-    close();
+
+    QPropertyAnimation *animation = new QPropertyAnimation(ui->mainFrame, "pos");
+    animation->setDuration(400);
+    animation->setStartValue(QPoint(0, 0));
+    animation->setEasingCurve(QEasingCurve::InOutCirc);
+    animation->setEndValue(QPoint(-ui->mainFrame->width(), 0));
+
+    animation->start();
+
+    QTimer* timer = new QTimer(this);
+    timer->setSingleShot(true);
+
+    connect(timer, &QTimer::timeout, this, &RootOverlayWindow::close);
+
+    timer->start(400);
 }
 
 void RootOverlayWindow::keyPressEvent(QKeyEvent *event)
