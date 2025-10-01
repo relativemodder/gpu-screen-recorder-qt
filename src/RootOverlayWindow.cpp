@@ -1,8 +1,8 @@
 #include "RootOverlayWindow.h"
-#include "ui_RootOverlayWindow.h"
 #include <QKeyEvent>
 #include <QPropertyAnimation>
 #include <QTimer>
+#include "ui_RootOverlayWindow.h"
 
 RootOverlayWindow::RootOverlayWindow(QWidget *parent)
     : QMainWindow(parent)
