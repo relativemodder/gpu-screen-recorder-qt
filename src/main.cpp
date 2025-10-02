@@ -13,7 +13,7 @@
 
 int main(int argc, char *argv[])
 {
-    setenv("USE_LSH", "1", 1);
+    setenv("USE_LSH", "0", 1);
 
     bool useLayerShell = qEnvironmentVariable("USE_LSH", "1") == "1";
 
@@ -65,11 +65,15 @@ int main(int argc, char *argv[])
 
     RootOverlayWindow w;
     w.setAttribute(Qt::WA_TranslucentBackground);
-    w.setWindowFlag(Qt::NoTitleBarBackgroundHint);
+    w.setWindowFlag(Qt::Tool);
+
+
+    w.createWinId();
 
     if (useLayerShell) {
-        LayerShellQt::Window *layerShell = LayerShellQt::Window::get((QWindow*)w.window());
+        LayerShellQt::Window *layerShell = LayerShellQt::Window::get(w.windowHandle());
         layerShell->setLayer(LayerShellQt::Window::LayerOverlay);
+        layerShell->setKeyboardInteractivity(LayerShellQt::Window::KeyboardInteractivityNone);
         layerShell->setScope("gsr-ui");
     }
 

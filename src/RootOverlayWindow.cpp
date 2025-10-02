@@ -117,7 +117,7 @@ void RootOverlayWindow::keyPressEvent(QKeyEvent *event)
 
 void RootOverlayWindow::mousePressEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton && event->x() > ui->mainFrame->width())
+    if (event->button() == Qt::LeftButton && event->position().x() > ui->mainFrame->width())
     {
         disappear();
     }
