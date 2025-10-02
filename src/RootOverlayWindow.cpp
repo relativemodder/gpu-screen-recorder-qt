@@ -13,12 +13,36 @@ RootOverlayWindow::RootOverlayWindow(QWidget *parent)
 {
     ui->setupUi(this);
     RootOverlayWindow::instance = this;
+
     connect(ui->closeButton, &QPushButton::clicked, this, &RootOverlayWindow::disappear);
+    connect(ui->settingsButton, &QPushButton::clicked, this, &RootOverlayWindow::settingsPressed);
+
+    pageState = PageStateMain;
 
     ui->mainFrame->hide();
 
     mainPage = new MainPage(this);
     navigateTo(mainPage);
+}
+
+void RootOverlayWindow::settingsPressed()
+{
+    if (settingsPage == nullptr) {
+        settingsPage = new SettingsPage();
+    }
+
+    if (pageState == PageStateMain) {
+        navigateTo(settingsPage);
+        pageState = PageStateSettings;
+        ui->settingsButton->setText("  Go back");
+        ui->settingsButton->setIcon(QIcon::fromTheme("edit-undo"));
+    }
+    else {
+        navigateTo(mainPage);
+        pageState = PageStateMain;
+        ui->settingsButton->setText("  Settings");
+        ui->settingsButton->setIcon(QIcon::fromTheme("preferences-other"));
+    }
 }
 
 void RootOverlayWindow::navigateTo(QWidget *page)

@@ -4,12 +4,15 @@
 #include <QMainWindow>
 #include <QKeyEvent>
 #include "MainPage.h"
+#include "SettingsPage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class RootOverlayWindow;
 }
 QT_END_NAMESPACE
+
+enum PageState { PageStateMain, PageStateSettings };
 
 class RootOverlayWindow : public QMainWindow
 {
@@ -23,12 +26,15 @@ public:
 
 private:
     Ui::RootOverlayWindow *ui;
-    MainPage *mainPage;
+    MainPage *mainPage = nullptr;
+    SettingsPage *settingsPage = nullptr;
+    PageState pageState;
 
 public slots:
     void disappear();
     void appear();
     void playAppearAnimation();
+    void settingsPressed();
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;

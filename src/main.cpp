@@ -13,6 +13,8 @@
 
 int main(int argc, char *argv[])
 {
+    setenv("USE_LSH", "1", 1);
+
     bool useLayerShell = qEnvironmentVariable("USE_LSH", "1") == "1";
 
     if (useLayerShell) {

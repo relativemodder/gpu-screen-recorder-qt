@@ -56,7 +56,15 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background: #242424;</string>
+         <string notr="true">#mainFrame {
+	background: #1e1e1e;
+}
+
+#settingsButton {
+	padding-left: 10px;
+	padding-right: 10px;
+	font-weight: bold;
+}</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::Shape::StyledPanel</enum>
@@ -140,8 +148,7 @@
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">padding-left: 10px;
-padding-right: 10px;</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>  Settings</string>
@@ -173,6 +180,12 @@ padding-right: 10px;</string>
                </property>
                <property name="icon">
                 <iconset theme="QIcon::ThemeIcon::WindowClose"/>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
                </property>
                <property name="flat">
                 <bool>true</bool>
