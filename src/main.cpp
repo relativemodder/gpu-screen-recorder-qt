@@ -12,7 +12,12 @@
 
 int main(int argc, char *argv[])
 {
-    LayerShellQt::Shell::useLayerShell();
+    bool useLayerShell = qEnvironmentVariable("USE_LSH", "1") == "1";
+
+    if (useLayerShell) {
+        LayerShellQt::Shell::useLayerShell();
+    }
+
     QApplication a(argc, argv);
     QDBusConnection connection = QDBusConnection::sessionBus();
 
@@ -30,6 +35,8 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    qWarning("No valid instances of GSR Qt Overlay found. Creating a new one.\n");
+
     if (!connection.registerService(SERVICE_NAME)) {
         qWarning("%s\n", qPrintable(connection.lastError().message()));
         return 1;
@@ -42,9 +49,11 @@ int main(int argc, char *argv[])
     w.setAttribute(Qt::WA_TranslucentBackground);
     w.setWindowFlag(Qt::NoTitleBarBackgroundHint);
 
-    LayerShellQt::Window *layerShell = LayerShellQt::Window::get((QWindow*)w.window());
-    layerShell->setLayer(LayerShellQt::Window::LayerOverlay);
-    layerShell->setScope("gsr-ui");
+    if (useLayerShell) {
+        LayerShellQt::Window *layerShell = LayerShellQt::Window::get((QWindow*)w.window());
+        layerShell->setLayer(LayerShellQt::Window::LayerOverlay);
+        layerShell->setScope("gsr-ui");
+    }
 
     gsrDbusObject.appear();
 

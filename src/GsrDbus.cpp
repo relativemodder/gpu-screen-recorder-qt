@@ -8,7 +8,12 @@ GsrDbus::GsrDbus(QObject *parent)
 void GsrDbus::appear()
 {
     if (RootOverlayWindow::instance != nullptr) {
-        RootOverlayWindow::instance->show();
+        if (qEnvironmentVariable("USE_LSH", "1") == "1") {
+            RootOverlayWindow::instance->show();
+        }
+        else {
+            RootOverlayWindow::instance->showFullScreen();
+        }
         RootOverlayWindow::instance->appear();
     }
 }
