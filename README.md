@@ -3,6 +3,8 @@
 A sidebar overlay UI for [GPU Screen Recorder](https://git.dec05eba.com/gpu-screen-recorder/about/) in the style of NVIDIA App.\
 The application is currently primarly designed for Wayland and can't be run on X11 (yet).
 
+<img src="./assets/screenshot.png" alt="Screenshot" />
+
 
 # Technologies
 - Qt 6
