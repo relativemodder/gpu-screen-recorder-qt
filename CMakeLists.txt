@@ -5,6 +5,7 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
 
 file(GLOB_RECURSE PROJ_SRC src/*.cpp)
 file(GLOB_RECURSE PROJ_HDR include/*.h*)
+file(GLOB_RECURSE PROJ_UI ui/*.ui)
 
 qt_standard_project_setup()
 
@@ -18,6 +19,7 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
 qt_add_executable(${PROJECT_NAME}
     ${PROJ_SRC}
     ${PROJ_HDR}
+    ${PROJ_UI}
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
