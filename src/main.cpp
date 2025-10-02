@@ -7,6 +7,7 @@
 #include <QDBusReply>
 #include <QDBusInterface>
 #include <QDBusConnectionInterface>
+#include <QCommandLineParser>
 #include <GsrDbus.h>
 
 
@@ -19,6 +20,21 @@ int main(int argc, char *argv[])
     }
 
     QApplication a(argc, argv);
+
+    QCommandLineParser parser;
+    parser.setApplicationDescription(
+        QString("GPU Screen Recorder Qt Overlay.\n") +
+        QString("A sidebar overlay UI for GPU Screen Recorder in the style of NVIDIA App.\n") +
+        QString("The application is currently primarly designed for Wayland and can't be run on X11 (yet).\n\n") +
+        QString("You can disable the use of `layer-shell` Wayland protocol by passing `USE_LSH=0` environment variable.")
+    );
+    auto helpOption = parser.addHelpOption();
+    parser.process(a);
+
+    if (parser.isSet(helpOption)) {
+        return 0;
+    }
+
     QDBusConnection connection = QDBusConnection::sessionBus();
 
     if (!connection.isConnected()) {
