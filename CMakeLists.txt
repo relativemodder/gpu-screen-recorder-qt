@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.19)
 project(gpu-screen-recorder-qt LANGUAGES CXX)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets DBus)
+find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(LayerShellQt REQUIRED)
 
 file(GLOB_RECURSE PROJ_SRC src/*.cpp)
 file(GLOB_RECURSE PROJ_HDR include/*.h*)
@@ -22,7 +24,9 @@ qt_add_executable(${PROJECT_NAME}
     ${PROJ_UI}
 )
 
-target_include_directories(${PROJECT_NAME} PUBLIC 
+
+target_link_libraries(gpu-screen-recorder-qt PRIVATE Qt6::Core)
+target_include_directories(${PROJECT_NAME} PUBLIC
     include
 )
 
@@ -30,6 +34,9 @@ target_link_libraries(${PROJECT_NAME}
     PRIVATE
         Qt::Core
         Qt::Widgets
+        Qt::DBus
+        LayerShellQt::Interface
+
 )
 
 include(GNUInstallDirs)

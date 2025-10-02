@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QKeyEvent>
+#include "MainPage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -16,10 +17,13 @@ class RootOverlayWindow : public QMainWindow
 
 public:
     RootOverlayWindow(QWidget *parent = nullptr);
+    static RootOverlayWindow* instance;
+    void navigateTo(QWidget* page);
     ~RootOverlayWindow();
 
 private:
     Ui::RootOverlayWindow *ui;
+    MainPage *mainPage;
 
 public slots:
     void disappear();
@@ -28,5 +32,6 @@ public slots:
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
 };
 #endif // ROOTOVERLAYWINDOW_H

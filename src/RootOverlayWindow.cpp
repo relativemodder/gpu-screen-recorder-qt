@@ -2,15 +2,29 @@
 #include <QKeyEvent>
 #include <QPropertyAnimation>
 #include <QTimer>
+#include <QMessageBox>
 #include "ui_RootOverlayWindow.h"
+
+RootOverlayWindow* RootOverlayWindow::instance = nullptr;
 
 RootOverlayWindow::RootOverlayWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::RootOverlayWindow)
 {
     ui->setupUi(this);
-
+    RootOverlayWindow::instance = this;
     connect(ui->closeButton, &QPushButton::clicked, this, &RootOverlayWindow::disappear);
+
+    ui->mainFrame->hide();
+
+    mainPage = new MainPage(this);
+    navigateTo(mainPage);
+}
+
+void RootOverlayWindow::navigateTo(QWidget *page)
+{
+    ui->stackedView->addWidget(page);
+    ui->stackedView->setCurrentWidget(page);
 }
 
 RootOverlayWindow::~RootOverlayWindow()
@@ -56,10 +70,13 @@ void RootOverlayWindow::disappear()
 
     QTimer* timer = new QTimer(this);
     timer->setSingleShot(true);
-
-    connect(timer, &QTimer::timeout, this, &RootOverlayWindow::close);
-
+    connect(timer, &QTimer::timeout, ui->mainFrame, &QFrame::hide);
     timer->start(400);
+
+    QTimer* timer1 = new QTimer(this);
+    timer1->setSingleShot(true);
+    connect(timer1, &QTimer::timeout, this, &RootOverlayWindow::hide);
+    timer1->start(500);
 }
 
 void RootOverlayWindow::keyPressEvent(QKeyEvent *event)
@@ -71,4 +88,15 @@ void RootOverlayWindow::keyPressEvent(QKeyEvent *event)
     }
 
     QMainWindow::keyPressEvent(event);
+}
+
+
+void RootOverlayWindow::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton && event->x() > ui->mainFrame->width())
+    {
+        disappear();
+    }
+
+    QMainWindow::mousePressEvent(event);
 }
